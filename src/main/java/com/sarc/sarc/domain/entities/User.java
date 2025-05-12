@@ -1,13 +1,12 @@
 package com.sarc.sarc.domain.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
-
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,16 +24,24 @@ public class User {
     private String identificador;
     private String telefone;
     private String sexo;
-    private String perfil; // Admin, Professor, Aluno, Coordenador
+    private LocalDate dataNascimento;
+    
+    @Enumerated(EnumType.STRING)
+    private TipoPerfil perfil;
+
+    public enum TipoPerfil {
+        ADMIN, PROFESSOR, ALUNO, COORDENADOR
+    }
 
     public User(Long id, String email, String nome, String identificador,
-                String telefone, String sexo, String perfil) {
+                String telefone, String sexo, LocalDate dataNascimento, TipoPerfil perfil) {
         this.id = id;
         this.email = email;
         this.nome = nome;
         this.identificador = identificador;
         this.telefone = telefone;
         this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
         this.perfil = perfil;
     }
 }
