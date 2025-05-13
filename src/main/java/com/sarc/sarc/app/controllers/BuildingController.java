@@ -1,4 +1,4 @@
-package com.sarc.sarc.app.controller.controllers;
+package com.sarc.sarc.app.controllers;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sarc.sarc.app.controller.services.BuildingService;
+import com.sarc.sarc.app.services.BuildingService;
 import com.sarc.sarc.domain.Building;
 import com.sarc.sarc.domain.Room;
 
