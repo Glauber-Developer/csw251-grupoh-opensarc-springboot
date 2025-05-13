@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sarc.sarc.app.services.RoomService;
-import com.sarc.sarc.domain.Resource;
-import com.sarc.sarc.domain.Room;
+import com.sarc.sarc.domain.entities.Resource;
+import com.sarc.sarc.domain.entities.Room;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

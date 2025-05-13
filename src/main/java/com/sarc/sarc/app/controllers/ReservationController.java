@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sarc.sarc.app.services.ReservationService;
-import com.sarc.sarc.domain.Reservation;
+import com.sarc.sarc.domain.entities.Reservation;
 
 @RestController
 @RequestMapping("/reservations")

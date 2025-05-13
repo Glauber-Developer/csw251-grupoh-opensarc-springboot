@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.sarc.sarc.domain.Resource;
+import com.sarc.sarc.domain.entities.Resource;
 
 /**
  * Repositório para operações de persistência de recursos.
