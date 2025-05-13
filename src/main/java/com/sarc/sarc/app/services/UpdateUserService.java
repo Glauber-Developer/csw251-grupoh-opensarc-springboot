@@ -23,7 +23,7 @@ public class UpdateUserService {
             throw new IllegalArgumentException("Usuário não encontrado com ID: " + id);
         }
 
-        // Validação do perfil
+        // Validação do perfil para garantir que seja um dos valores permitidos
         TipoPerfil tipoPerfil;
         try {
             tipoPerfil = TipoPerfil.valueOf(perfil.toUpperCase());
