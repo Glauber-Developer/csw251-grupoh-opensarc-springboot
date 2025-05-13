@@ -1,4 +1,4 @@
-package com.sarc.sarc.domain.enums;
+package com.sarc.sarc.enums;
 
 /**
  * Enumeração que define os tipos possíveis de recursos.

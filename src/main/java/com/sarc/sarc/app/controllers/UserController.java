@@ -1,9 +1,9 @@
 package com.sarc.sarc.app.controllers;
 
-import com.sarc.sarc.app.services.CreateUserService;
-import com.sarc.sarc.app.services.UpdateUserService;
-import com.sarc.sarc.domain.entities.User;
-import com.sarc.sarc.domain.entities.User.TipoPerfil;
+import com.sarc.sarc.core.domain.entities.User;
+import com.sarc.sarc.core.domain.entities.User.TipoPerfil;
+import com.sarc.sarc.core.services.CreateUserService;
+import com.sarc.sarc.core.services.UpdateUserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

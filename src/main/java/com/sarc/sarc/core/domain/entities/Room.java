@@ -1,4 +1,4 @@
-package com.sarc.sarc.domain.entities;
+package com.sarc.sarc.core.domain.entities;
 
 import java.util.HashSet;
 import java.util.Set;

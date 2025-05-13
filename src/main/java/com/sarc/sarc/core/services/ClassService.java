@@ -1,13 +1,13 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.sarc.sarc.domain.entities.Class;
-import com.sarc.sarc.domain.entities.User;
-import com.sarc.sarc.domain.entities.User.TipoPerfil;
+import com.sarc.sarc.core.domain.entities.Class;
+import com.sarc.sarc.core.domain.entities.User;
+import com.sarc.sarc.core.domain.entities.User.TipoPerfil;
 import com.sarc.sarc.infrastructure.ClassRepository;
 import com.sarc.sarc.infrastructure.UserRepository;
 

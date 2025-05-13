@@ -1,4 +1,4 @@
-package com.sarc.sarc.DTO;
+package com.sarc.sarc.core.services.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

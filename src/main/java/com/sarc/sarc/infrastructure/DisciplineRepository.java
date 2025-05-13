@@ -1,6 +1,8 @@
 package com.sarc.sarc.infrastructure;
-import com.sarc.sarc.domain.entities.Discipline;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sarc.sarc.core.domain.entities.Discipline;
+
 import java.util.Optional;
 
 public interface DisciplineRepository extends JpaRepository<Discipline,Long>{

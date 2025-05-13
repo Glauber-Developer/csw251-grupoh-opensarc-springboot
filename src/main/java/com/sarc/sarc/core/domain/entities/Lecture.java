@@ -1,11 +1,11 @@
-package com.sarc.sarc.domain.entities;
+package com.sarc.sarc.core.domain.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// import com.sarc.sarc.domain.entities.Reservation;
-// import com.sarc.sarc.domain.entities.Room;
+import com.sarc.sarc.core.domain.entities.Reservation;
+import com.sarc.sarc.core.domain.entities.Room;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

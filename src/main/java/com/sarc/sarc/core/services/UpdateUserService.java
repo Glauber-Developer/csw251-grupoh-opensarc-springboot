@@ -1,7 +1,7 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
-import com.sarc.sarc.domain.entities.User;
-import com.sarc.sarc.domain.entities.User.TipoPerfil;
+import com.sarc.sarc.core.domain.entities.User;
+import com.sarc.sarc.core.domain.entities.User.TipoPerfil;
 import com.sarc.sarc.infrastructure.UserRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;

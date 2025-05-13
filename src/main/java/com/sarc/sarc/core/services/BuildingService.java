@@ -1,4 +1,4 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sarc.sarc.domain.entities.Building;
-import com.sarc.sarc.domain.entities.Room;
+import com.sarc.sarc.core.domain.entities.Building;
+import com.sarc.sarc.core.domain.entities.Room;
 import com.sarc.sarc.infrastructure.BuildingRepository;
 import com.sarc.sarc.infrastructure.RoomRepository;
 

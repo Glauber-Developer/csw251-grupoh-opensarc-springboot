@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 
-import com.sarc.sarc.app.services.LectureService;
-import com.sarc.sarc.domain.entities.Lecture;
-import com.sarc.sarc.domain.entities.User;
+import com.sarc.sarc.core.domain.entities.Lecture;
+import com.sarc.sarc.core.domain.entities.User;
+import com.sarc.sarc.core.services.LectureService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

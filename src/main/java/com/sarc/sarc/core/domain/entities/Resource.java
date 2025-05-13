@@ -1,10 +1,10 @@
-package com.sarc.sarc.domain.entities;
+package com.sarc.sarc.core.domain.entities;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.sarc.sarc.domain.enums.ResourceStatus;
-import com.sarc.sarc.domain.enums.ResourceType;
+import com.sarc.sarc.enums.ResourceStatus;
+import com.sarc.sarc.enums.ResourceType;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;

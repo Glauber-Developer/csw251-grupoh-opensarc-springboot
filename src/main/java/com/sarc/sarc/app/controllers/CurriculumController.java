@@ -1,7 +1,8 @@
 package com.sarc.sarc.app.controllers;
 
-import com.sarc.sarc.app.services.CurriculumService;
-import com.sarc.sarc.domain.entities.Curriculum;
+import com.sarc.sarc.core.domain.entities.Curriculum;
+import com.sarc.sarc.core.services.CurriculumService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

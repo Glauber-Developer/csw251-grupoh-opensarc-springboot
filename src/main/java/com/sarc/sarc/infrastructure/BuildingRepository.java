@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.sarc.sarc.domain.entities.Building;
+import com.sarc.sarc.core.domain.entities.Building;
 
 /**
  * Repositório para operações de persistência de prédios.
