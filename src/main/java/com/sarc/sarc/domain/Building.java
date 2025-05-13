@@ -3,58 +3,77 @@ package com.sarc.sarc.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.*;
-
-import com.sarc.sarc.domain.Entity;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Entidade que representa um prédio no sistema.
  * Apenas administradores podem gerenciar prédios.
  */
 @Entity
-Tables(name = "buildings")
-@Data
+@Table(name = "buildings")
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Building {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
+    @jakarta.persistence.Column(nullable = false)
     private String name;
     
-    @Column(nullable = false)
+    @jakarta.persistence.Column(nullable = false)
     private String address;
     
-    @Column(name = "building_number", nullable = false)
+    @jakarta.persistence.Column(name = "building_number", nullable = false)
     private String buildingNumber;
     
-    @Column
+    @jakarta.persistence.Column
     private String complement;
     
-    @Column
+    @jakarta.persistence.Column
     private String district;
     
-    @Column
+    @jakarta.persistence.Column
     private String city;
     
-    @Column
+    @jakarta.persistence.Column
     private String state;
     
-    @Column
+    @jakarta.persistence.Column
     private String zipCode;
     
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms = new ArrayList<>();
-
-        public Building() {
-        }
+    
+    public Building(Long id, String name, String address, String buildingNumber, 
+                   String complement, String district, String city, 
+                   String state, String zipCode, List<Room> rooms) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.buildingNumber = buildingNumber;
+        this.complement = complement;
+        this.district = district;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.rooms = rooms;
+    }
     
     /**
      * Adiciona uma sala ao prédio
@@ -73,4 +92,4 @@ public class Building {
         rooms.remove(room);
         room.setBuilding(null);
     }
-    }
+}

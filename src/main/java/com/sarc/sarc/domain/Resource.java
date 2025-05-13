@@ -1,13 +1,25 @@
 package com.sarc.sarc.domain;
 
-import com.sarc.sarc.domain.enums.ResourceStatus;
-import com.sarc.sarc.domain.enums.ResourceType;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
+import com.sarc.sarc.domain.enums.ResourceStatus;
+import com.sarc.sarc.domain.enums.ResourceType;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Entidade que representa um recurso no sistema.
@@ -15,9 +27,11 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "resources")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Resource {
     
     @Id
@@ -30,15 +44,12 @@ public class Resource {
     @Column
     private String description;
     
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ResourceType type;
     
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ResourceStatus status;
     
-    @ElementCollection
     @CollectionTable(name = "resource_characteristics", 
                     joinColumns = @JoinColumn(name = "resource_id"))
     @Column(name = "characteristic")
@@ -46,4 +57,15 @@ public class Resource {
     
     @ManyToMany(mappedBy = "resources")
     private Set<Room> rooms = new HashSet<>();
+    
+    public Resource(Long id, String name, String description, ResourceType type,
+                   ResourceStatus status, Set<String> characteristics, Set<Room> rooms) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.status = status;
+        this.characteristics = characteristics;
+        this.rooms = rooms;
+    }
 }

@@ -1,5 +1,6 @@
 package com.sarc.sarc.infrastructure;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,12 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
     boolean existsByBuildingNumber(String buildingNumber);
 
     Optional<Building> findById(Long id);
+
+    public List<Building> findAll();
+
+    public Building save(Building building);
+
+    public boolean existsById(Long id);
+
+    public void deleteById(Long id);
 }

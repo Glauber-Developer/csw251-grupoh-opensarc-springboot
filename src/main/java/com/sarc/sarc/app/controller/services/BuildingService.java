@@ -1,14 +1,18 @@
 package com.sarc.sarc.app.controller.services;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sarc.sarc.domain.Building;
 import com.sarc.sarc.domain.Room;
 import com.sarc.sarc.infrastructure.BuildingRepository;
 import com.sarc.sarc.infrastructure.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Serviço para operações relacionadas a prédios.
@@ -36,10 +40,12 @@ public class BuildingService {
     /**
      * Busca um prédio pelo ID
      * @param id ID do prédio
-     * @return Prédio encontrado ou vazio
+     * @return ResponseEntity com o prédio encontrado ou status NOT_FOUND
      */
-    public Optional<Building> getBuildingById(Long id) {
-        return buildingRepository.findById(id);
+    public ResponseEntity<Building> getBuildingById(Long id) {
+        Optional<Building> building = buildingRepository.findById(id);
+        return building.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     
     /**
@@ -62,28 +68,25 @@ public class BuildingService {
         if (buildingRepository.existsByBuildingNumber(building.getBuildingNumber())) {
             throw new IllegalArgumentException("Já existe um prédio com o número: " + building.getBuildingNumber());
         }
-        return buildingRepository.save(building);
+        buildingRepository.save(building);
+        return building;
     }
     
     /**
      * Atualiza um prédio existente
      * @param id ID do prédio a ser atualizado
      * @param buildingDetails Novas informações do prédio
-     * @return Prédio atualizado ou vazio se não encontrado
+     * @return ResponseEntity com o prédio atualizado ou status NOT_FOUND
      */
     @Transactional
-    public Optional<Building> updateBuilding(Long id, Building buildingDetails) {
-        return buildingRepository.findById(id).map(building -> {
-            building.setName(buildingDetails.getName());
-            building.setAddress(buildingDetails.getAddress());
-            building.setBuildingNumber(buildingDetails.getBuildingNumber());
-            building.setComplement(buildingDetails.getComplement());
-            building.setDistrict(buildingDetails.getDistrict());
-            building.setCity(buildingDetails.getCity());
-            building.setState(buildingDetails.getState());
-            building.setZipCode(buildingDetails.getZipCode());
-            return buildingRepository.save(building);
-        });
+    public ResponseEntity<Building> updateBuilding(Long id, Building buildingDetails) {
+        if (!buildingRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        buildingDetails.setId(id);
+        Building updatedBuilding = buildingRepository.save(buildingDetails);
+        return ResponseEntity.ok(updatedBuilding);
     }
     
     /**
@@ -93,10 +96,11 @@ public class BuildingService {
      */
     @Transactional
     public boolean deleteBuilding(Long id) {
-        return buildingRepository.findById(id).map(building -> {
-            buildingRepository.delete(building);
-            return true;
-        }).orElse(false);
+        if (!buildingRepository.existsById(id)) {
+            return false;
+        }
+        buildingRepository.deleteById(id);
+        return true;
     }
     
     /**

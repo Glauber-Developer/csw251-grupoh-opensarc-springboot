@@ -1,18 +1,21 @@
 package com.sarc.sarc.app.controller.services;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.sarc.sarc.domain.Building;
 import com.sarc.sarc.domain.Resource;
 import com.sarc.sarc.domain.Room;
 import com.sarc.sarc.infrastructure.BuildingRepository;
 import com.sarc.sarc.infrastructure.ResourceRepository;
 import com.sarc.sarc.infrastructure.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Serviço para operações relacionadas a salas.
@@ -44,10 +47,12 @@ public class RoomService {
     /**
      * Busca uma sala pelo ID
      * @param id ID da sala
-     * @return Sala encontrada ou vazio
+     * @return ResponseEntity com a sala encontrada ou status NOT_FOUND
      */
-    public Optional<Room> getRoomById(Long id) {
-        return roomRepository.findById(id);
+    public ResponseEntity<Room> getRoomById(Long id) {
+        Optional<Room> room = roomRepository.findById(id);
+        return room.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     
     /**
@@ -90,24 +95,32 @@ public class RoomService {
             .orElseThrow(() -> new IllegalArgumentException("Prédio não encontrado com ID: " + buildingId));
         
         room.setBuilding(building);
-        return roomRepository.save(room);
+        roomRepository.save(room);
+        return room;
     }
     
     /**
      * Atualiza uma sala existente
      * @param id ID da sala a ser atualizada
      * @param roomDetails Novas informações da sala
-     * @return Sala atualizada ou vazio se não encontrada
+     * @return ResponseEntity com a sala atualizada ou status NOT_FOUND
      */
     @Transactional
-    public Optional<Room> updateRoom(Long id, Room roomDetails) {
-        return roomRepository.findById(id).map(room -> {
-            room.setName(roomDetails.getName());
-            room.setCapacity(roomDetails.getCapacity());
-            room.setFloor(roomDetails.getFloor());
-            // Não atualiza o prédio nem recursos aqui
-            return roomRepository.save(room);
-        });
+    public ResponseEntity<Object> updateRoom(Long id, Room roomDetails) {
+        if (!roomRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        roomDetails.setId(id);
+        // Preserva o prédio e recursos existentes
+        Optional<Room> existingRoom = roomRepository.findById(id);
+        if (existingRoom.isPresent()) {
+            roomDetails.setBuilding(existingRoom.get().getBuilding());
+            roomDetails.setResources(existingRoom.get().getResources());
+        }
+        
+        Room updatedRoom = roomRepository.save(roomDetails);
+        return ResponseEntity.ok(updatedRoom);
     }
     
     /**
@@ -117,20 +130,32 @@ public class RoomService {
      */
     @Transactional
     public boolean deleteRoom(Long id) {
-        return roomRepository.findById(id).map(room -> {
-            roomRepository.delete(room);
-            return true;
-        }).orElse(false);
+        if (!roomRepository.existsById(id)) {
+            return false;
+        }
+        roomRepository.deleteById(id);
+        return true;
+    }
+    
+    /**
+     * Obtém todos os recursos de uma sala
+     * @param roomId ID da sala
+     * @return ResponseEntity com o conjunto de recursos ou status NOT_FOUND
+     */
+    public ResponseEntity<Set<Resource>> getRoomResources(Long roomId) {
+        Optional<Room> room = roomRepository.findById(roomId);
+        return room.map(r -> ResponseEntity.ok(r.getResources()))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     
     /**
      * Adiciona um recurso a uma sala
      * @param roomId ID da sala
      * @param resourceId ID do recurso
-     * @return Sala atualizada com o novo recurso
+     * @return ResponseEntity com a sala atualizada ou status NOT_FOUND
      */
     @Transactional
-    public Optional<Room> addResourceToRoom(Long roomId, Long resourceId) {
+    public ResponseEntity<Room> addResourceToRoom(Long roomId, Long resourceId) {
         Optional<Room> roomOpt = roomRepository.findById(roomId);
         Optional<Resource> resourceOpt = resourceRepository.findById(resourceId);
         
@@ -139,20 +164,21 @@ public class RoomService {
             Resource resource = resourceOpt.get();
             
             room.addResource(resource);
-            return Optional.of(roomRepository.save(room));
+            Room updatedRoom = roomRepository.save(room);
+            return ResponseEntity.ok(updatedRoom);
         }
         
-        return Optional.empty();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     
     /**
      * Remove um recurso de uma sala
      * @param roomId ID da sala
      * @param resourceId ID do recurso
-     * @return Sala atualizada sem o recurso
+     * @return ResponseEntity com a sala atualizada ou status NOT_FOUND
      */
     @Transactional
-    public Optional<Room> removeResourceFromRoom(Long roomId, Long resourceId) {
+    public ResponseEntity<Room> removeResourceFromRoom(Long roomId, Long resourceId) {
         Optional<Room> roomOpt = roomRepository.findById(roomId);
         Optional<Resource> resourceOpt = resourceRepository.findById(resourceId);
         
@@ -161,18 +187,10 @@ public class RoomService {
             Resource resource = resourceOpt.get();
             
             room.removeResource(resource);
-            return Optional.of(roomRepository.save(room));
+            Room updatedRoom = roomRepository.save(room);
+            return ResponseEntity.ok(updatedRoom);
         }
         
-        return Optional.empty();
-    }
-    
-    /**
-     * Obtém todos os recursos de uma sala
-     * @param roomId ID da sala
-     * @return Conjunto de recursos da sala ou vazio se não encontrada
-     */
-    public Optional<Set<Resource>> getRoomResources(Long roomId) {
-        return roomRepository.findById(roomId).map(Room::getResources);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

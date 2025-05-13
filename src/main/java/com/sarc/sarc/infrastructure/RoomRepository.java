@@ -1,5 +1,10 @@
 package com.sarc.sarc.infrastructure;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.sarc.sarc.domain.Room;
@@ -21,4 +26,14 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     // Busca salas que possuem um determinado recurso
     @Query("SELECT r FROM Room r JOIN r.resources res WHERE res.id = :resourceId")
     java.util.List<Room> findByResourceId(@Param("resourceId") Long resourceId);
+
+    public List<Room> findAll();
+
+    public Optional<Room> findById(Long id);
+
+    public Room save(Room room);
+
+    public boolean existsById(Long id);
+
+    public void deleteById(Long id);
 }
