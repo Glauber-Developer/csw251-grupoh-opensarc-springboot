@@ -1,6 +1,6 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
-import com.sarc.sarc.domain.entities.Reservation;
+import com.sarc.sarc.core.domain.entities.Reservation;
 import com.sarc.sarc.infrastructure.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

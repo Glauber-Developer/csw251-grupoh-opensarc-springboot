@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.sarc.sarc.domain.entities.Resource;
+import com.sarc.sarc.core.domain.entities.Resource;
 
 /**
  * Repositório para operações de persistência de recursos.
@@ -13,10 +13,10 @@ import com.sarc.sarc.domain.entities.Resource;
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
     // Busca recursos por tipo
-    List<Resource> findByType(com.sarc.sarc.domain.enums.ResourceType type);
+    List<Resource> findByType(com.sarc.sarc.common.enums.ResourceType type);
     
     // Busca recursos por status
-    List<Resource> findByStatus(com.sarc.sarc.domain.enums.ResourceStatus status);
+    List<Resource> findByStatus(com.sarc.sarc.common.enums.ResourceStatus status);
     
     // Busca recursos por nome (case insensitive)
     List<Resource> findByNameContainingIgnoreCase(String name);

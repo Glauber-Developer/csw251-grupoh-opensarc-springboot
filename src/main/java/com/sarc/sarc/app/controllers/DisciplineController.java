@@ -1,7 +1,8 @@
 package com.sarc.sarc.app.controllers;
 
-import com.sarc.sarc.app.services.DisciplineService;
-import com.sarc.sarc.domain.entities.Discipline;
+import com.sarc.sarc.core.domain.entities.Discipline;
+import com.sarc.sarc.core.services.DisciplineService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

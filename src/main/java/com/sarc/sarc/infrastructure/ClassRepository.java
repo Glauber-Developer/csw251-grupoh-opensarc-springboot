@@ -1,7 +1,7 @@
 package com.sarc.sarc.infrastructure;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sarc.sarc.domain.entities.Class;
+import com.sarc.sarc.core.domain.entities.Class;
 
 import java.util.Optional;
 

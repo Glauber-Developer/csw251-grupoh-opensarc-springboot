@@ -1,6 +1,6 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
-import com.sarc.sarc.domain.entities.Curriculum;
+import com.sarc.sarc.core.domain.entities.Curriculum;
 import com.sarc.sarc.infrastructure.CurriculumRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

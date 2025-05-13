@@ -1,4 +1,4 @@
-package com.sarc.sarc.domain.entities;
+package com.sarc.sarc.core.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

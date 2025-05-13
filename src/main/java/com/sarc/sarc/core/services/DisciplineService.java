@@ -1,7 +1,7 @@
-package com.sarc.sarc.app.services;
+package com.sarc.sarc.core.services;
 
 
-import com.sarc.sarc.domain.entities.Discipline;
+import com.sarc.sarc.core.domain.entities.Discipline;
 import com.sarc.sarc.infrastructure.DisciplineRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

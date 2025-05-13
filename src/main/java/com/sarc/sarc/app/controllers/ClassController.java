@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 
-import com.sarc.sarc.app.services.ClassService;
-import com.sarc.sarc.domain.entities.Class;
-import com.sarc.sarc.domain.entities.User;
+import com.sarc.sarc.core.domain.entities.Class;
+import com.sarc.sarc.core.domain.entities.User;
+import com.sarc.sarc.core.services.ClassService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,8 +1,9 @@
 package com.sarc.sarc.infrastructure;
 
-import com.sarc.sarc.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.sarc.sarc.core.domain.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
