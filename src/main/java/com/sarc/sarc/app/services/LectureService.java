@@ -49,13 +49,11 @@ public class LectureService {
     public ResponseEntity<Lecture> updateLecture(Long id, Lecture lecture) {
         Lecture existingLecture = lectureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aula não encontrada"));
-        existingLecture.setClassNumber(lecture.getClassNumber());
-        existingLecture.setSubject(lecture.getSubject());
-        existingLecture.setTeacher(lecture.getTeacher());
-        existingLecture.setStartHour(lecture.getStartHour());
-        existingLecture.setEndHour(lecture.getEndHour());
-        existingLecture.setSeats(lecture.getSeats());
-        existingLecture.setExam(lecture.getExam());
+        existingLecture.setClassEntity(lecture.getClassEntity());
+        existingLecture.setDate(lecture.getDate());
+        existingLecture.setRoom(lecture.getRoom());
+        existingLecture.setReservations(lecture.getReservations());
+        existingLecture.setAttendance(lecture.getAttendance());
         lectureRepository.save(existingLecture);
         return ResponseEntity.ok(existingLecture);
     }
