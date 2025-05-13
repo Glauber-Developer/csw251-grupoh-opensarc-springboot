@@ -1,4 +1,4 @@
-package com.sarc.sarc.app.controllers;
+package com.sarc.sarc.app.controller;
 
 import com.sarc.sarc.app.services.ReservationService;
 import com.sarc.sarc.domain.Reservation;
