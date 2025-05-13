@@ -40,6 +40,4 @@ public class Reservation {
 
     @Column(nullable = false)
     private String timeSlot;
-
-    private String description; 
 }
