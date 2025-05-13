@@ -1,4 +1,4 @@
-package com.sarc.sarc.config;
+package com.sarc.sarc.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
