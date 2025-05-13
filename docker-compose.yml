@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sarc
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - sarc-network
+    restart: always
+
+  db:
+    image: postgres:14.1-alpine
+    container_name: postgres-sarc
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=sarc
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - sarc-network
+    restart: always
+
+
+networks:
+  sarc-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
