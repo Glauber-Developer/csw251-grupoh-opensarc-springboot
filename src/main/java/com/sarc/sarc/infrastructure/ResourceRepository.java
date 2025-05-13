@@ -13,10 +13,10 @@ import com.sarc.sarc.core.domain.entities.Resource;
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
     // Busca recursos por tipo
-    List<Resource> findByType(com.sarc.sarc.enums.ResourceType type);
+    List<Resource> findByType(com.sarc.sarc.common.enums.ResourceType type);
     
     // Busca recursos por status
-    List<Resource> findByStatus(com.sarc.sarc.enums.ResourceStatus status);
+    List<Resource> findByStatus(com.sarc.sarc.common.enums.ResourceStatus status);
     
     // Busca recursos por nome (case insensitive)
     List<Resource> findByNameContainingIgnoreCase(String name);
