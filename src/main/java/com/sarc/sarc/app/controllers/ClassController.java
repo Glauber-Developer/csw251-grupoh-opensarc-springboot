@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 
-import com.sarc.sarc.core.domain.entities.Class;
+import com.sarc.sarc.core.domain.entities.ClassEntity;
 import com.sarc.sarc.core.domain.entities.User;
 import com.sarc.sarc.core.services.ClassService;
 
@@ -31,33 +31,33 @@ public class ClassController {
 
     @GetMapping
     @Operation(summary= "Listar todas as turmas")
-    public List<Class> getAllClasses() {
+    public List<ClassEntity> getAllClasses() {
         return classService.getAllClasses();
     }
 
     @GetMapping("/{id}")
     @Operation(summary= "Buscar turma por ID")
-    public Class getClassById(@RequestParam Long id) {
+    public ClassEntity getClassById(@RequestParam Long id) {
         return classService.getClassById(id);
     }
 
     @GetMapping("/search")
     @Operation(summary= "Buscar turma por número")
-    public Class searchClasses(@RequestParam int classNumber) {
+    public ClassEntity searchClasses(@RequestParam int classNumber) {
         return classService.getClassByNumber(classNumber);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('COORDENADOR')")
     @Operation(summary= "Criar nova turma")
-    public Class createClass(@RequestBody Class classEntity) {
+    public ClassEntity createClass(@RequestBody ClassEntity classEntity) {
         return classService.createClass(classEntity);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('COORDENADOR')")
     @Operation(summary= "Atualizar turma")
-    public ResponseEntity<Class> updateClass(@RequestParam Long id, @RequestBody Class classEntity) {
+    public ResponseEntity<ClassEntity> updateClass(@RequestParam Long id, @RequestBody ClassEntity classEntity) {
         return classService.updateClass(id, classEntity);
     }
     
@@ -76,7 +76,7 @@ public class ClassController {
     @GetMapping("/{classId}/students")
     @Operation(summary= "Listar alunos de uma turma")
     public List<User> getStudentsByClass(@RequestParam Long classId) {
-        Class classEntity = classService.getClassById(classId);
+        ClassEntity classEntity = classService.getClassById(classId);
         return classEntity.getStudents();
     }
     

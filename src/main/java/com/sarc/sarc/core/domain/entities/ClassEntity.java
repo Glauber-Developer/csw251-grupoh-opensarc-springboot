@@ -1,11 +1,13 @@
 package com.sarc.sarc.core.domain.entities;
 
+import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Entity
 @Table(name = "classes")
-public class Class {
+public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,9 +32,10 @@ public class Class {
     private double endHour;
     private int seats;
     private String exam;
-    private ArrayList<User> students;
+    @ManyToMany(mappedBy = "classes")
+    private List<User> students;
 
-    public Class(Long id, int classNumber, String subject, String teacher,
+    public ClassEntity(Long id, int classNumber, String subject, String teacher,
                  double startHour, double endHour, int seats, String exam) {
         this.id = id;
         this.classNumber = classNumber;
@@ -42,6 +45,6 @@ public class Class {
         this.endHour = endHour;
         this.seats = seats;
         this.exam = exam;
-        this.students = new ArrayList<>();
+        this.students = new ArrayList<User>();
     }
 }

@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,9 +31,12 @@ public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Class classEntity;
+    @ManyToOne
+    private ClassEntity classEntity;
     private String date;
+    private String content;
     private int room; // Type placeholder
     private int reservations; // Type placeholder
-    private HashMap<User, Boolean> attendance;
+    @OneToOne
+    private Attendance attendance;
 }

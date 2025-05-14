@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 
+import com.sarc.sarc.core.domain.entities.Attendance;
 import com.sarc.sarc.core.domain.entities.Lecture;
 import com.sarc.sarc.core.domain.entities.User;
 import com.sarc.sarc.core.services.LectureService;
@@ -27,7 +28,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RestController
 @RequestMapping("/api/lectures")
 @Tag(name= "Aulas", description = "API para gerenciamento de aulas")
-public class LecturesController {
+public class LectureController {
     
     @Autowired
     private LectureService lectureService;
@@ -78,11 +79,11 @@ public class LecturesController {
 
     @GetMapping("/{lectureId}/students")
     @Operation(summary= "Listar presença de uma aula")
-    public HashMap<User, Boolean> getStudentsByLecture(@PathVariable Long lectureId) {
-        HashMap<User, Boolean> students = lectureService.getAttendanceByLecture(lectureId);
-        if (students.isEmpty()) {
-            throw new RuntimeException("Nenhuma lista de presença encontrada");
+    public Attendance getStudentsByLecture(@PathVariable Long lectureId) {
+        Attendance attendance = lectureService.getAttendanceByLecture(lectureId);
+        if (attendance == null) {
+            throw new RuntimeException("Attendance not found for lecture id: " + lectureId);
         }
-        return students;
+        return attendance;
     }
 }

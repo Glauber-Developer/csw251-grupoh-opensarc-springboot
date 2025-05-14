@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.sarc.sarc.core.domain.entities.Class;
+import com.sarc.sarc.core.domain.entities.ClassEntity;
 import com.sarc.sarc.core.domain.entities.User;
 import com.sarc.sarc.core.domain.entities.User.TipoPerfil;
 import com.sarc.sarc.infrastructure.ClassRepository;
@@ -23,22 +23,22 @@ public class ClassService {
         this.userRepository = userRepository;
     }
 
-    public List<Class> getAllClasses() {
+    public List<ClassEntity> getAllClasses() {
         return classRepository.findAll();
     }
 
-    public Class getClassById(Long id) {
+    public ClassEntity getClassById(Long id) {
         return classRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
     }
 
-    public Class getClassByNumber(int classNumber) {
+    public ClassEntity getClassByNumber(int classNumber) {
         return classRepository.findByClassNumber(classNumber)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
     }
 
     @Transactional
-    public Class createClass(Class classEntity) {
+    public ClassEntity createClass(ClassEntity classEntity) {
         if (classRepository.existsByClassNumber(classEntity.getClassNumber())) {
             throw new RuntimeException("Já existe uma Turma com esse número");
         }
@@ -47,8 +47,8 @@ public class ClassService {
     }
 
     @Transactional
-    public ResponseEntity<Class> updateClass(Long id, Class classEntity) {
-        Class existingClass = classRepository.findById(id)
+    public ResponseEntity<ClassEntity> updateClass(Long id, ClassEntity classEntity) {
+        ClassEntity existingClass = classRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
         existingClass.setClassNumber(classEntity.getClassNumber());
         existingClass.setSubject(classEntity.getSubject());
@@ -63,14 +63,14 @@ public class ClassService {
 
     @Transactional
     public boolean deleteClass(Long id) {
-        Class existingClass = classRepository.findById(id)
+        ClassEntity existingClass = classRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
         classRepository.delete(existingClass);
         return true;
     }
 
     public List<User> getStudentsInClass(Long classId) {
-        Class classEntity = classRepository.findById(classId)
+        ClassEntity classEntity = classRepository.findById(classId)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
         return classEntity.getStudents();
     }
