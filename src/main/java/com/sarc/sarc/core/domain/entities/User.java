@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +26,8 @@ public class User {
     private String telefone;
     private String sexo;
     private LocalDate dataNascimento;
+    @ManyToMany
+    private List<ClassEntity> classes;
     
     @Enumerated(EnumType.STRING)
     private TipoPerfil perfil;

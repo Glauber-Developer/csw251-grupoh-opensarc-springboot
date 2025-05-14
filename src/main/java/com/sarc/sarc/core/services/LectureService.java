@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sarc.sarc.core.domain.entities.Attendance;
 import com.sarc.sarc.core.domain.entities.Lecture;
 import com.sarc.sarc.core.domain.entities.User;
 import com.sarc.sarc.infrastructure.ClassRepository;
@@ -31,7 +32,7 @@ public class LectureService {
     }
 
     public List<Lecture> getLectureByClassNumber(int classNumber) {
-        List<Lecture> lectures = lectureRepository.findByClassNumber(classNumber);
+        List<Lecture> lectures = lectureRepository.findByClassEntity_ClassNumber(classNumber);
         if (lectures.isEmpty()) {
             throw new RuntimeException("Aula não encontrada");
         }
@@ -65,7 +66,7 @@ public class LectureService {
         return true;
     }
 
-    public HashMap<User, Boolean> getAttendanceByLecture(Long lectureId) {
+    public Attendance getAttendanceByLecture(Long lectureId) {
         Lecture lecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new RuntimeException("Aula não encontrada"));
         return lecture.getAttendance();
