@@ -1,0 +1,161 @@
+
+# 📚 OpenSarc
+
+**OpenSarc** é uma aplicação desenvolvida em **Java** com o framework **Spring Boot**, voltada para o gerenciamento acadêmico de reservas de recursos, prédios, salas, currículos, disciplinas, turmas e usuários.
+
+---
+
+## 🚀 Funcionalidades
+
+### 👤 Gerenciamento de Usuários
+
+* Criação, atualização e exclusão de usuários
+
+### 🏢 Gerenciamento de Prédios e Salas
+
+* Cadastro de prédios e salas
+* Associação de recursos às salas
+
+### 💡 Gerenciamento de Recursos
+
+* Cadastro de recursos (projetores, lousas, etc.)
+* Controle de status: `AVAILABLE`, `MAINTENANCE`
+
+### 📘 Currículos e Disciplinas
+
+* Cadastro de currículos e suas disciplinas
+
+### 👥 Turmas e Aulas
+
+* Cadastro de turmas
+* Associação de aulas às disciplinas
+
+### 📅 Sistema de Reservas
+
+* Criação e atualização de reservas de recursos para aulas
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* Java 17+
+* Spring Boot (Web, Data JPA)
+* Hibernate (ORM)
+* PostgreSQL
+* H2 Database (para testes)
+* Lombok
+* Maven
+* Swagger (documentação da API)
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+src/main/java/com/sarc/sarc/
+├── app
+│   ├── controllers         # Controladores REST
+|   └── common
+│       └── enums           # Enumerações
+├── core
+│   └── domain
+│       ├── entities        # Entidades JPA
+│       └── services        # Lógica de negócios
+│           └── dto         # DTOs para transferência de dados
+├── infrastructure
+│   └── repositories        # Repositórios JPA
+├──  common
+|   └── enums
+```
+
+---
+
+## ⚙️ Configuração do Ambiente
+
+### 1. Pré-requisitos
+
+* Java 17+
+* Maven
+* PostgreSQL (ou outro banco compatível)
+
+### 2. Configuração do Banco de Dados
+
+Atualize o arquivo `application.properties` ou `application.yml` com suas credenciais:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/sarc
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
+```
+
+### 3. Executar a Aplicação
+
+```bash
+./docker-compose up --build
+```
+
+Acesse: [http://localhost:8080](http://localhost:8080)
+
+---
+
+## 🔑 Endpoints Principais
+
+### Usuários
+
+* `POST /api/users`: Criar usuário
+* `GET /api/users`: Listar usuários
+* `PUT /api/users/{id}`: Atualizar usuário
+* `DELETE /api/users/{id}`: Remover usuário
+
+### Prédios e Salas
+
+* `POST /api/buildings`: Criar prédio
+* `GET /api/buildings`: Listar prédios
+* `POST /api/rooms`: Criar sala
+
+### Recursos
+
+* `POST /api/resources`: Criar recurso
+* `GET /api/resources`: Listar recursos
+
+### Reservas
+
+* `POST /api/reservations`: Criar reserva
+* `PUT /api/reservations/{id}`: Atualizar reserva
+
+---
+
+## 📖 Documentação da API
+
+A documentação está disponível via Swagger:
+
+👉 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## 🧪 Testes
+
+### Testes Automatizados
+
+```bash
+./mvnw test
+```
+
+---
+
+## 📝 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+## 👨‍💻 Contribuidores
+
+* **Gabriel Fogaça**
+* **Gabriel Martins**
+* **Glauber Araujo**
+* **Gustavo Pasquali**
+* **Lucas Sampaio**
+
+---
