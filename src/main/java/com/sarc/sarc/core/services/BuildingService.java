@@ -20,7 +20,6 @@ public class BuildingService {
     private final BuildingRepository buildingRepository;
     private final RoomRepository roomRepository;
     
-    @Autowired
     public BuildingService(BuildingRepository buildingRepository, RoomRepository roomRepository) {
         this.buildingRepository = buildingRepository;
         this.roomRepository = roomRepository;

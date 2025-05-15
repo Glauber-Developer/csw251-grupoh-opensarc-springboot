@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sarc.sarc.core.domain.entities.Discipline;
 import com.sarc.sarc.core.services.DisciplineService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/discipline")
+@Tag(name= "Disciplinas", description = "API para gerenciamento de disciplinas")
 public class DisciplineController {
     @Autowired
     private DisciplineService disciplineService;
