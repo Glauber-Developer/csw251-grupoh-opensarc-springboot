@@ -14,9 +14,6 @@ import com.sarc.sarc.core.domain.entities.Room;
 import com.sarc.sarc.infrastructure.BuildingRepository;
 import com.sarc.sarc.infrastructure.RoomRepository;
 
-/**
- * Serviço para operações relacionadas a prédios.
- */
 @Service
 public class BuildingService {
     
@@ -28,40 +25,21 @@ public class BuildingService {
         this.buildingRepository = buildingRepository;
         this.roomRepository = roomRepository;
     }
-    
-    /**
-     * Obtém todos os prédios cadastrados
-     * @return Lista de prédios
-     */
+
     public List<Building> getAllBuildings() {
         return buildingRepository.findAll();
     }
     
-    /**
-     * Busca um prédio pelo ID
-     * @param id ID do prédio
-     * @return ResponseEntity com o prédio encontrado ou status NOT_FOUND
-     */
     public ResponseEntity<Building> getBuildingById(Long id) {
         Optional<Building> building = buildingRepository.findById(id);
         return building.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    
-    /**
-     * Busca prédios por nome
-     * @param name Nome ou parte do nome do prédio
-     * @return Lista de prédios encontrados
-     */
+
     public List<Building> getBuildingsByName(String name) {
         return buildingRepository.findByNameContainingIgnoreCase(name);
     }
-    
-    /**
-     * Cria um novo prédio
-     * @param building Prédio a ser criado
-     * @return Prédio criado
-     */
+
     @Transactional
     public Building createBuilding(Building building) {
         // Verifica se já existe um prédio com o mesmo número
@@ -71,13 +49,7 @@ public class BuildingService {
         buildingRepository.save(building);
         return building;
     }
-    
-    /**
-     * Atualiza um prédio existente
-     * @param id ID do prédio a ser atualizado
-     * @param buildingDetails Novas informações do prédio
-     * @return ResponseEntity com o prédio atualizado ou status NOT_FOUND
-     */
+
     @Transactional
     public ResponseEntity<Building> updateBuilding(Long id, Building buildingDetails) {
         if (!buildingRepository.existsById(id)) {
@@ -88,12 +60,7 @@ public class BuildingService {
         Building updatedBuilding = buildingRepository.save(buildingDetails);
         return ResponseEntity.ok(updatedBuilding);
     }
-    
-    /**
-     * Remove um prédio pelo ID
-     * @param id ID do prédio a ser removido
-     * @return true se removido com sucesso, false se não encontrado
-     */
+
     @Transactional
     public boolean deleteBuilding(Long id) {
         if (!buildingRepository.existsById(id)) {
@@ -103,11 +70,6 @@ public class BuildingService {
         return true;
     }
     
-    /**
-     * Obtém todas as salas de um prédio
-     * @param buildingId ID do prédio
-     * @return Lista de salas do prédio
-     */
     public List<Room> getRoomsByBuilding(Long buildingId) {
         return roomRepository.findByBuildingId(buildingId);
     }

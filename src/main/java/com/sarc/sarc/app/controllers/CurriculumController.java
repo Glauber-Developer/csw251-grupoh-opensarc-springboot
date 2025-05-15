@@ -1,16 +1,23 @@
 package com.sarc.sarc.app.controllers;
 
-import com.sarc.sarc.core.domain.entities.Curriculum;
-import com.sarc.sarc.core.services.CurriculumService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.sarc.sarc.core.domain.entities.Curriculum;
+import com.sarc.sarc.core.services.CurriculumService;
 
 @RestController
-@RequestMapping("/curriculum")
+@RequestMapping("/api/curriculum")
 public class CurriculumController {
     @Autowired
     private CurriculumService curriculumService;
@@ -38,5 +45,11 @@ public class CurriculumController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Curriculum> deleteCurriculum(@PathVariable Long id) {
         return curriculumService.deleteCurriculum(id);
+    }
+
+    @PostMapping("/{curriculumId}/assign-discipline/{disciplineId}")
+    public ResponseEntity<String> assignDisciplineToCurriculum(@PathVariable Long curriculumId, @PathVariable Long disciplineId){
+        curriculumService.disciplineAttribuition(disciplineId, curriculumId);
+        return ResponseEntity.ok("Disciplina atribuída com sucesso ao currículo.");
     }
 }

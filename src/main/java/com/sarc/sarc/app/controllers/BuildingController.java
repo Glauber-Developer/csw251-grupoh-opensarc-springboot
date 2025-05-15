@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sarc.sarc.core.domain.entities.Building;
@@ -48,28 +46,22 @@ public class BuildingController {
         return buildingService.getBuildingById(id);
     }
     
-    @GetMapping("/search")
-    @Operation(summary = "Buscar prédios por nome")
-    public List<Building> searchBuildingsByName(@RequestParam String name) {
-        return buildingService.getBuildingsByName(name);
-    }
-    
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Criar novo prédio", description = "Apenas administradores podem criar prédios")
     public Building createBuilding(@Validated @RequestBody Building building) {
         return buildingService.createBuilding(building);
     }
     
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Atualizar prédio", description = "Apenas administradores podem atualizar prédios")
     public ResponseEntity<Building> updateBuilding(@PathVariable Long id, @Valid @RequestBody Building building) {
         return buildingService.updateBuilding(id, building);
     }
     
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Remover prédio", description = "Apenas administradores podem remover prédios")
     public ResponseEntity<Building> deleteBuilding(@PathVariable Long id) {
         if (buildingService.deleteBuilding(id)) {

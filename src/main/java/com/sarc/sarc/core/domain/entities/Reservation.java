@@ -7,8 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+<<<<<<< HEAD
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+=======
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+>>>>>>> 8adeb258c53d634c26660e9ea18ad2f6db8acbff
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
