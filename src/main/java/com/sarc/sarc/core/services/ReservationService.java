@@ -1,13 +1,14 @@
 package com.sarc.sarc.core.services;
 
-import com.sarc.sarc.core.domain.entities.Reservation;
-import com.sarc.sarc.infrastructure.ReservationRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.sarc.sarc.core.domain.entities.Reservation;
+import com.sarc.sarc.infrastructure.ReservationRepository;
 
 @Service
 public class ReservationService {
@@ -48,13 +49,13 @@ public class ReservationService {
         return ResponseEntity.ok(savedReservation);
     }
 
-    public ResponseEntity<Reservation> deleteReservation(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        if (!reservation.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        reservationRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public boolean deleteReservation(Long id) {
+    Optional<Reservation> reservation = reservationRepository.findById(id);
+    if (!reservation.isPresent()) {
+        return false;
     }
+    reservationRepository.deleteById(id);
+    return true;
+}
+
 }

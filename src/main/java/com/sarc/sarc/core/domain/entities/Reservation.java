@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -25,17 +29,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
-    private Class class;
-    */
-
-    /* 
+    @JoinColumn(name = "lecture_id", nullable = false)
+    private Lecture lecture;
+    
     @ManyToOne
     @JoinColumn(name = "resource_id", nullable = false)
     private Resource resource;
-    */
+    
 
     private LocalDateTime dateTime; 
 
@@ -43,43 +44,4 @@ public class Reservation {
 
     @Column(nullable = false)
     private String timeSlot;
-
-    public Reservation(Long id, LocalDateTime dateTime, String observations, String timeSlot) {
-        this.id = id;
-        this.dateTime = dateTime;
-        this.observations = observations;
-        this.timeSlot = timeSlot;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-
-    public void setObservations(String observations) {
-        this.observations = observations;
-    }
-
-    public String getTimeSlot() {
-        return timeSlot;
-    }
-
-    public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot;
-    }
 }
