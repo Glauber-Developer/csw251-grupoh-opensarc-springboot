@@ -56,7 +56,7 @@ src/main/java/com/sarc/sarc/
 ├── app
 │   ├── controllers         # Controladores REST
 |   └── common
-│       └── enums           # Enumerações
+├── enums           # Enumerações
 ├── core
 │   └── domain
 │       ├── entities        # Entidades JPA
@@ -64,8 +64,6 @@ src/main/java/com/sarc/sarc/
 │           └── dto         # DTOs para transferência de dados
 ├── infrastructure
 │   └── repositories        # Repositórios JPA
-├──  common
-|   └── enums
 ```
 
 ---
