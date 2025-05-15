@@ -4,6 +4,7 @@ import com.sarc.sarc.core.domain.entities.Curriculum;
 import com.sarc.sarc.core.services.CurriculumService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,11 @@ public class CurriculumController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Curriculum> deleteCurriculum(@PathVariable Long id) {
         return curriculumService.deleteCurriculum(id);
+    }
+
+    @PostMapping("/{curriculumId}/assign-discipline/{disciplineId}")
+    public ResponseEntity<String> assignDisciplineToCurriculum(@PathVariable Long curriculumId, @PathVariable Long disciplineId){
+        curriculumService.disciplineAttribuition(disciplineId, curriculumId);
+        return ResponseEntity.ok("Disciplina atribuída com sucesso ao currículo.");
     }
 }

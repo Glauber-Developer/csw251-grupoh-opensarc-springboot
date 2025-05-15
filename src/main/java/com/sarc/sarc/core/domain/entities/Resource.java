@@ -6,15 +6,7 @@ import java.util.Set;
 import com.sarc.sarc.common.enums.ResourceStatus;
 import com.sarc.sarc.common.enums.ResourceType;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +19,6 @@ import lombok.ToString;
  */
 @Entity
 @Table(name = "resources")
-@Getter
-@Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -53,6 +43,7 @@ public class Resource {
     @CollectionTable(name = "resource_characteristics", 
                     joinColumns = @JoinColumn(name = "resource_id"))
     @Column(name = "characteristic")
+    @ElementCollection
     private Set<String> characteristics = new HashSet<>();
     
     @ManyToMany(mappedBy = "resources")
@@ -66,6 +57,62 @@ public class Resource {
         this.type = type;
         this.status = status;
         this.characteristics = characteristics;
+        this.rooms = rooms;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
+
+    public ResourceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ResourceStatus status) {
+        this.status = status;
+    }
+
+    public Set<String> getCharacteristics() {
+        return characteristics;
+    }
+
+    public void setCharacteristics(Set<String> characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public Set<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
     }
 }

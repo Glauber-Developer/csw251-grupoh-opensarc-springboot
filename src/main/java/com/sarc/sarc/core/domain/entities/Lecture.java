@@ -20,9 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
+
 @NoArgsConstructor
-@Setter
 @ToString
 @EqualsAndHashCode
 @Entity
@@ -39,4 +38,70 @@ public class Lecture {
     private int reservations; // Type placeholder
     @OneToOne
     private Attendance attendance;
+
+    public Lecture(Long id, ClassEntity classEntity, String date, String content, int room, int reservations, Attendance attendance) {
+        this.id = id;
+        this.classEntity = classEntity;
+        this.date = date;
+        this.content = content;
+        this.room = room;
+        this.reservations = reservations;
+        this.attendance = attendance;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ClassEntity getClassEntity() {
+        return classEntity;
+    }
+
+    public void setClassEntity(ClassEntity classEntity) {
+        this.classEntity = classEntity;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
+
+    public int getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(int reservations) {
+        this.reservations = reservations;
+    }
+
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(Attendance attendance) {
+        this.attendance = attendance;
+    }
 }

@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -45,4 +43,43 @@ public class Reservation {
 
     @Column(nullable = false)
     private String timeSlot;
+
+    public Reservation(Long id, LocalDateTime dateTime, String observations, String timeSlot) {
+        this.id = id;
+        this.dateTime = dateTime;
+        this.observations = observations;
+        this.timeSlot = timeSlot;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+
+    public String getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(String timeSlot) {
+        this.timeSlot = timeSlot;
+    }
 }
