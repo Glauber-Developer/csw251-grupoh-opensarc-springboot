@@ -26,7 +26,12 @@ public class ClassEntity {
     private double endHour;
     private int seats;
     private String exam;
-    @ManyToMany(mappedBy = "classes")
+    @ManyToMany
+    @JoinTable(
+            name = "class_students",
+            joinColumns = @JoinColumn(name = "class_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> students;
     @ManyToOne
     @JoinColumn(name = "discipline_id")
