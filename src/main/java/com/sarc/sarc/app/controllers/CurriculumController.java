@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sarc.sarc.core.domain.entities.Curriculum;
 import com.sarc.sarc.core.services.CurriculumService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/curriculum")
+@Tag(name= "Currículos", description = "API para gerenciamento de currículos")
 public class CurriculumController {
     @Autowired
     private CurriculumService curriculumService;
