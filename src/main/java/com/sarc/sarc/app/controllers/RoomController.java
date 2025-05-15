@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,7 +68,7 @@ public class RoomController {
     }
     
     @PostMapping("/building/{buildingId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Criar nova sala", description = "Apenas administradores podem criar salas")
     public Room createRoom(
             @PathVariable Long buildingId,
@@ -78,14 +77,14 @@ public class RoomController {
     }
     
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Atualizar sala", description = "Apenas administradores podem atualizar salas")
     public ResponseEntity<?> updateRoom(@PathVariable Long id, @Validated @RequestBody Room room) {
         return roomService.updateRoom(id, room);
     }
     
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Remover sala", description = "Apenas administradores podem remover salas")
     public ResponseEntity<Room> deleteRoom(@PathVariable Long id) {
         if (roomService.deleteRoom(id)) {
@@ -101,7 +100,7 @@ public class RoomController {
     }
     
     @PostMapping("/{roomId}/resources/{resourceId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Adicionar recurso a uma sala", description = "Apenas administradores podem adicionar recursos")
     public ResponseEntity<Room> addResourceToRoom(
             @PathVariable Long roomId,
@@ -110,7 +109,7 @@ public class RoomController {
     }
     
     @DeleteMapping("/{roomId}/resources/{resourceId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Remover recurso de uma sala", description = "Apenas administradores podem remover recursos")
     public ResponseEntity<Room> removeResourceFromRoom(
             @PathVariable Long roomId,

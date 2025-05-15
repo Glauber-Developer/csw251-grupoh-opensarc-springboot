@@ -1,25 +1,24 @@
 package com.sarc.sarc.app.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sarc.sarc.core.domain.entities.ClassEntity;
 import com.sarc.sarc.core.domain.entities.User;
 import com.sarc.sarc.core.services.ClassService;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/classes")
@@ -48,21 +47,21 @@ public class ClassController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('COORDENADOR')")
+    //@PreAuthorize("hasRole('COORDENADOR')")
     @Operation(summary= "Criar nova turma")
     public ClassEntity createClass(@RequestBody ClassEntity classEntity) {
         return classService.createClass(classEntity);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('COORDENADOR')")
+    //@PreAuthorize("hasRole('COORDENADOR')")
     @Operation(summary= "Atualizar turma")
     public ResponseEntity<ClassEntity> updateClass(@RequestParam Long id, @RequestBody ClassEntity classEntity) {
         return classService.updateClass(id, classEntity);
     }
     
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('COORDENADOR')")
+    //@PreAuthorize("hasRole('COORDENADOR')")
     @Operation(summary= "Deletar turma")
     public ResponseEntity<Void> deleteClass(@RequestParam Long id) {
         boolean deleted = classService.deleteClass(id);

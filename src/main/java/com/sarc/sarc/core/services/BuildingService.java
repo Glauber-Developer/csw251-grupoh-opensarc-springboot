@@ -14,7 +14,6 @@ import com.sarc.sarc.core.domain.entities.Room;
 import com.sarc.sarc.infrastructure.BuildingRepository;
 import com.sarc.sarc.infrastructure.RoomRepository;
 
-
 @Service
 public class BuildingService {
     
@@ -30,7 +29,7 @@ public class BuildingService {
     public List<Building> getAllBuildings() {
         return buildingRepository.findAll();
     }
-
+    
     public ResponseEntity<Building> getBuildingById(Long id) {
         Optional<Building> building = buildingRepository.findById(id);
         return building.map(ResponseEntity::ok)
@@ -43,6 +42,7 @@ public class BuildingService {
 
     @Transactional
     public Building createBuilding(Building building) {
+        // Verifica se já existe um prédio com o mesmo número
         if (buildingRepository.existsByBuildingNumber(building.getBuildingNumber())) {
             throw new IllegalArgumentException("Já existe um prédio com o número: " + building.getBuildingNumber());
         }
@@ -69,7 +69,7 @@ public class BuildingService {
         buildingRepository.deleteById(id);
         return true;
     }
-
+    
     public List<Room> getRoomsByBuilding(Long buildingId) {
         return roomRepository.findByBuildingId(buildingId);
     }
