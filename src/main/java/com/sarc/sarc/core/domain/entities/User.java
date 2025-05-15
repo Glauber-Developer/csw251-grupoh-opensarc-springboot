@@ -25,7 +25,7 @@ public class User {
     private String telefone;
     private String sexo;
     private LocalDate dataNascimento;
-    @ManyToMany
+    @ManyToMany(mappedBy = "students")
     private List<ClassEntity> classes;
     
     @Enumerated(EnumType.STRING)
