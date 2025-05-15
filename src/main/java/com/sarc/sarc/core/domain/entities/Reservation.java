@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,17 +29,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
-    private Class class;
-    */
-
-    /* 
+    @JoinColumn(name = "lecture_id", nullable = false)
+    private Lecture lecture;
+    
     @ManyToOne
     @JoinColumn(name = "resource_id", nullable = false)
     private Resource resource;
-    */
+    
 
     private LocalDateTime dateTime; 
 

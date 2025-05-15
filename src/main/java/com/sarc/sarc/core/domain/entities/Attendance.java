@@ -21,4 +21,6 @@ public class Attendance {
     private User user;
 
     private Boolean present;
+
+
 }
