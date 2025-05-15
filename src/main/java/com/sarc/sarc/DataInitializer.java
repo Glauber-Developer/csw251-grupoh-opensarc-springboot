@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +38,83 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        Curriculum curriculum = new Curriculum();
+        curriculum.setSubjectName("Engenharia de Software");
+        curriculum.setValidityStart(sdf.parse("2020-01-01"));
+        curriculum.setValidityEnd(sdf.parse("2025-12-31"));
+        curriculumRepository.save(curriculum);
+
+        Discipline discipline1 = new Discipline();
+        discipline1.setName("Programação Orientada a Objetos");
+        discipline1.setCredits(4);
+        discipline1.setProgram("POO com Java");
+        discipline1.setBibliograficItem(List.of("Livro Java", "Effective Java"));
+        discipline1.setCurriculum(curriculum);
+        disciplineRepository.saveAll(List.of(discipline1));
+
+        ClassEntity class1 = new ClassEntity();
+        class1.setClassNumber(101);
+        class1.setSubject("POO");
+        class1.setTeacher("Prof. João");
+        class1.setStartHour(8.0);
+        class1.setEndHour(10.0);
+        class1.setSeats(40);
+        class1.setExam("Prova Final");
+        class1.setDiscipline(discipline1);
+        classEntityRepository.saveAll(List.of(class1));
+
+        User u1 = new User();
+        u1.setNome("Lucas Ribeiro");
+        u1.setEmail("lucas@sarc.com");
+        u1.setIdentificador("lr0025");
+        u1.setTelefone("51999999999");
+        u1.setSexo("M");
+        u1.setDataNascimento(LocalDate.of(1999, 3, 15));
+        u1.setPerfil(User.TipoPerfil.ALUNO);
+        u1.setClasses(List.of(class1));
+        userRepository.saveAll(List.of(u1));
+
+        Building b1 = new Building();
+        b1.setName("Bloco A");
+        b1.setAddress("Rua das Faculdades, 123");
+        b1.setBuildingNumber("A01");
+        b1.setComplement("Próximo à biblioteca");
+        b1.setDistrict("Centro");
+        b1.setCity("Porto Alegre");
+        b1.setState("RS");
+        b1.setZipCode("90000-000");
+        buildingRepository.save(b1);
+
+        Room r1 = new Room();
+        r1.setName("Sala 101");
+        r1.setCapacity(40);
+        r1.setFloor(1);
+        r1.setBuilding(b1);
+        roomRepository.saveAll(List.of(r1));
+
+        Resource projector = new Resource();
+        projector.setName("Projetor Epson");
+        projector.setType(ResourceType.SOFTWARE);
+        projector.setStatus(ResourceStatus.AVAILABLE);
+        projector.setDescription("Projetor com HDMI");
+        projector.setCharacteristics(Set.of("HDMI", "Full HD"));
+        resourceRepository.saveAll(List.of(projector));
+        r1.setResources(Set.of(projector));
+        roomRepository.save(r1);
+
+        Lecture lecture1 = new Lecture();
+        lecture1.setClassEntity(class1);
+        lecture1.setDate("2025-05-15");
+        lecture1.setContent("Herança e Polimorfismo");
+        lecture1.setRoom(r1.getId().intValue()); // Idealmente mapeado como @ManyToOne
+        lecture1.setReservations(0);
+        lectureRepository.save(lecture1);
+    }
+}
+
+        /*
         // Usuários
         User user1 = new User(1L,"ana@email.com", "Ana", "ana123", "51-99999-0001", "F", LocalDate.of(2001, 2, 10), User.TipoPerfil.ALUNO);
         User user2 = new User(2L,"bruno@email.com", "Bruno", "bruno456", "51-99999-0002", "M", LocalDate.of(2000, 8, 22), User.TipoPerfil.ALUNO);
@@ -86,3 +162,4 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("Banco de dados inicializado com dados de teste.");
     }
 }
+*/
