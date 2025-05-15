@@ -48,13 +48,13 @@ public class ReservationService {
         return ResponseEntity.ok(savedReservation);
     }
 
-    public ResponseEntity<Reservation> deleteReservation(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        if (!reservation.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        reservationRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public boolean deleteReservation(Long id) {
+    Optional<Reservation> reservation = reservationRepository.findById(id);
+    if (!reservation.isPresent()) {
+        return false;
     }
+    reservationRepository.deleteById(id);
+    return true;
+}
+
 }
