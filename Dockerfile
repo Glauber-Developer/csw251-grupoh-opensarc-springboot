@@ -1,19 +1,9 @@
-FROM eclipse-temurin:21-jdk AS build
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY .mvn .mvn
-COPY mvnw .
-COPY pom.xml .
-COPY src src
+COPY target/*.jar app.jar
 
-RUN ./mvnw package -DskipTests
-
-# Use uma imagem leve para rodar
-FROM eclipse-temurin:21-jre AS runtime
-
-WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
