@@ -20,6 +20,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
     
+    - name: Set up PostgreSQL
+      uses: harmon758/postgresql-action@v2
+      with:
+        postgresql version: '13'
+        username: ${{ secrets.DB_URL }}
+        password: ${{ secrets.DB_USERNAME }}
+        database: ${{ secrets.DB_PASSWORD }}
+
     - name: Run Tests
       run: mvn -B test
     
