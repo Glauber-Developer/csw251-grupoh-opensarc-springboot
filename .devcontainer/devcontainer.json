@@ -1,0 +1,9 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Java 21 Codespace",
+  "containerEnv": {
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk",
+    "PATH": "/usr/lib/jvm/java-21-openjdk/bin:${containerEnv.PATH}"
+  },
+  "postCreateCommand": "java -version && javac -version"
+}
