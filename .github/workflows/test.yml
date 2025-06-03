@@ -21,7 +21,7 @@ jobs:
         cache: maven
     
     - name: Set up PostgreSQL
-      uses: harmon758/postgresql-action@v2
+      uses: harmon758/postgresql-action@v1.0.0
       with:
         postgresql version: '13'
         username: ${{ secrets.DB_URL }}
