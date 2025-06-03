@@ -24,9 +24,9 @@ jobs:
       uses: harmon758/postgresql-action@v1.0.0
       with:
         postgresql version: '13'
-        username: ${{ secrets.DB_URL }}
-        password: ${{ secrets.DB_USERNAME }}
-        database: ${{ secrets.DB_PASSWORD }}
+        username: ${{ secrets.DB_USERNAME }}
+        password: ${{ secrets.DB_PASSWORD }} 
+        database: ${{ secrets.DB_URL }}
 
     - name: Run Tests
       run: mvn -B test
