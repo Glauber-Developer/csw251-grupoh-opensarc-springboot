@@ -1,0 +1,19 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <spring.profiles.active>test</spring.profiles.active>
+        <db.url>jdbc:postgresql://localhost:5432/sarc</db.url>
+        <db.username>postgres</db.username>
+        <db.password>postgres</db.password>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>test</activeProfile>
+  </activeProfiles>
+</settings>

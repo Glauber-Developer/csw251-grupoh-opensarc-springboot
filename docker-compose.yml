@@ -3,36 +3,40 @@ version: '3.8'
 services:
   app:
     build: .
-    ports:
-      - "${SERVER_PORT:-8080}:8080"
+    container_name: sarc-app
     depends_on:
-      - db
-    env_file:
-      - .env
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sarc
-      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      DB_URL: jdbc:postgresql://postgres:5432/sarc
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SERVER_PORT: 8080
     networks:
       - sarc-network
     restart: always
 
-  db:
-    image: postgres:14.1-alpine
-    container_name: postgres-sarc
+  postgres:
+    image: postgres:13
+    container_name: sarc-postgres
+    environment:
+      POSTGRES_DB: sarc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=sarc
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - sarc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
-
 
 networks:
   sarc-network:
