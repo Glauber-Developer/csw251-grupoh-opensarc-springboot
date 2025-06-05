@@ -45,7 +45,7 @@ jobs:
         run: sleep 30
 
       - name: Executar testes
-        run:  gradle test
+        run:  mvn test
 
       - name: Derrubar serviços do Docker Compose
         run: docker-compose -f docker-compose.yml down
